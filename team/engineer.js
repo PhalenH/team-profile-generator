@@ -10,15 +10,6 @@ class Engineer {
     this.email = email;
     this.gitHub = gitHub;
   }
-//   getName() {
-//     return this.name;
-//   }
-//   getId() {
-//     return this.id;
-//   }
-//   getEmail() {
-//     return this.email;
-//   }
   getGitHub() {
     return this.gitHub;
   }
