@@ -8,15 +8,15 @@ class Manager {
     this.email = email;
     this.officeNumber = officeNumber;
   }
-  getName() {
-    return this.name;
-  }
-  getId() {
-    return this.id;
-  }
-  getEmail() {
-    return this.email;
-  }
+//   getName() {
+//     return this.name;
+//   }
+//   getId() {
+//     return this.id;
+//   }
+//   getEmail() {
+//     return this.email;
+//   }
   getOfficeNumber() {
     return this.officeNumber;
   }
