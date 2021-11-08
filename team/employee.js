@@ -1,4 +1,10 @@
 class Employee {
+    /**
+     * 
+     * @param {string} name 
+     * @param {number} id 
+     * @param {string} email 
+     */
   constructor(name, id, email) {
     this.name = name;
     this.id = id;

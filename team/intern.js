@@ -4,11 +4,18 @@
 const Employee = require("../team/employee");
 
 class Intern extends Employee {
+    /**
+     * 
+     * @param {string} name 
+     * @param {number} id 
+     * @param {string} email 
+     * @param {string} school 
+     */
   constructor(name, id, email, school) {
     super(name, id, email);
     this.school = school;
   }
-  getGitHub() {
+  getSchool() {
     return this.school;
   }
   getRole() {

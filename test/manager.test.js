@@ -6,6 +6,7 @@ test("can create a office number using the contructor", () => {
     expect(testOfficeNumber.officeNumber).toBe(officeNumber);
   });
 
+// gets role from getRole();
 test("get role method should return the word Manager", () =>{
     const title = "Manager";
     const testTitle = new Manager('Phalen', 10, "email@email.com", 1);
