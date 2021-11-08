@@ -8,7 +8,6 @@ const fs = require("fs");
 // should this be a const? or has to be let since I'm adding stuff
 let fullTeam = [];
 
-
 function addManager() {
   inquirer
     .prompt([
@@ -187,17 +186,93 @@ function addIntern() {
 }
 
 function addMembers() {
-    inquirer
-      .prompt([
-        {
-          type: "list",
-          message: "Select from the following options to build your team",
-          name: "addingMembers",
-          choices: ["Add an Engineer", "Add an Intern", "Done"],
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Select from the following options to build your team",
+        name: "addingMembers",
+        choices: ["Add an Engineer", "Add an Intern", "Done"],
+      },
+    ])
+    .then();
+}
+
+//
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Select from the following options to build your team",
+        name: "role",
+        choices: ["Engineer", "Intern"],
+      },
+      {
+        type: "input",
+        message: "What is your employee's name?",
+        name: "name",
+        validate: function (input) {
+          if (input) {
+            return true;
+          } else {
+            console.log("Please enter your employee's name!");
+            return false;
+          }
         },
-      ])
-      .then();
-  }
-
-
-// 
+      },
+      {
+        type: "input",
+        message: "What is your employee's ID?",
+        name: "id",
+        validate: function (input) {
+          if (input) {
+            return true;
+          } else {
+            console.log("Please enter your employee's ID!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        message: "What is your employee's email?",
+        name: "email",
+        validate: function (input) {
+          if (input) {
+            return true;
+          } else {
+            console.log("Please enter your employee's email!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        message: "What is your employee's GitHub username?",
+        name: "gitHub",
+        validate: function (input) {
+          if (input) {
+            return true;
+          } else {
+            console.log("Please enter your employee's GitHub username!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        message: "What is your employee's school?",
+        name: "school",
+        validate: function (input) {
+          if (input) {
+            return true;
+          } else {
+            console.log("Please enter your employee's school!");
+            return false;
+          }
+        },
+      },
+    ])
+    .then();
+}
