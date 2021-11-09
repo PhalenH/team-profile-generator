@@ -132,23 +132,8 @@ function addEmployee() {
     .then((memberData) => {
       if (memberData.role === "Engineer") {
         addEngineer(memberData);
-        // const engineerName = memberData.name;
-        // const engineerId = memberData.id;
-        // const engineerEmail = memberData.email;
-        // const engineerGitHub = memberData.gitHub;
-        // let engineer = new Engineer(
-        //   engineerName,
-        //   engineerId,
-        //   engineerEmail,
-        //   engineerGitHub
-        // );
-        // console.log(engineer);
-        // fullTeam.push(engineer);
       } else if (memberData.role === "Intern") {
         addIntern(memberData);
-        // const internName = memberData.name;
-        // const internId = memberData.id;
-        // const internEmail = memberData.email;
       }
     });
 }
@@ -171,24 +156,35 @@ function addEngineer(memberData) {
           }
         },
       },
+      {
+        type: "list",
+        message: "Do you want to add another team member?",
+        name: "add",
+        choices: ["Yes", "No"],
+      },
     ])
     .then((engineerData) => {
-        const engineerGitHub = engineerData.gitHub;
-        const engineerName = memberData.name;
-        const engineerId = memberData.id;
-        const engineerEmail = memberData.email;
-        let engineer = new Engineer(
-          engineerName,
-          engineerId,
-          engineerEmail,
-          engineerGitHub
-        );
-        console.log(engineer);
-        fullTeam.push(engineer);
+      const engineerGitHub = engineerData.gitHub;
+      const engineerName = memberData.name;
+      const engineerId = memberData.id;
+      const engineerEmail = memberData.email;
+      let engineer = new Engineer(
+        engineerName,
+        engineerId,
+        engineerEmail,
+        engineerGitHub
+      );
+      console.log(engineer);
+      fullTeam.push(engineer);
+      if (engineerData.add === "Yes") {
+        addEmployee();
+      } else if (engineerData.add === "No") {
+        completeTeam();
+      }
     });
 }
 
-function addIntern() {
+function addIntern(memberData) {
   inquirer
     .prompt([
       {
@@ -204,21 +200,31 @@ function addIntern() {
           }
         },
       },
+      {
+        type: "list",
+        message: "Do you want to add another team member?",
+        name: "add",
+        choices: ["Yes", "No"],
+      },
     ])
     .then((internData) => {
-        const internSchool = internData.school;
-        const internName = memberData.name;
-        const internId = memberData.id;
-        const internEmail = memberData.email;
-        let intern = new Intern(
-            internName,
-            internId,
-            internEmail,
-            internSchool
-        );
-        console.log(intern);
-        fullTeam.push(intern);
+      const internSchool = internData.school;
+      const internName = memberData.name;
+      const internId = memberData.id;
+      const internEmail = memberData.email;
+      let intern = new Intern(internName, internId, internEmail, internSchool);
+      console.log(intern);
+      fullTeam.push(intern);
+      if (internData.add === "Yes") {
+        addEmployee();
+      } else if (internData.add === "No") {
+        completeTeam();
+      }
     });
+}
+
+function completeTeam() {
+
 }
 
 // function addEngineer() {
