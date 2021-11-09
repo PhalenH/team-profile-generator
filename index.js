@@ -131,10 +131,10 @@ function addEmployee() {
     ])
     .then((memberData) => {
       if (memberData.role === "Engineer") {
-        addEngineer();
-        const engineerName = memberData.name;
-        const engineerId = memberData.id;
-        const engineerEmail = memberData.email;
+        addEngineer(memberData);
+        // const engineerName = memberData.name;
+        // const engineerId = memberData.id;
+        // const engineerEmail = memberData.email;
         // const engineerGitHub = memberData.gitHub;
         // let engineer = new Engineer(
         //   engineerName,
@@ -145,17 +145,17 @@ function addEmployee() {
         // console.log(engineer);
         // fullTeam.push(engineer);
       } else if (memberData.role === "Intern") {
-        addIntern();
-        const internName = memberData.name;
-        const internId = memberData.id;
-        const internEmail = memberData.email;
+        addIntern(memberData);
+        // const internName = memberData.name;
+        // const internId = memberData.id;
+        // const internEmail = memberData.email;
       }
     });
 }
 
 addEmployee();
-
-function addEngineer() {
+// the memberData can be named whatever here because it's being sent on line 134 (addEngineer(memberData)), but for organization purposes better to keep it the same
+function addEngineer(memberData) {
   inquirer
     .prompt([
       {
@@ -174,6 +174,9 @@ function addEngineer() {
     ])
     .then((engineerData) => {
         const engineerGitHub = engineerData.gitHub;
+        const engineerName = memberData.name;
+        const engineerId = memberData.id;
+        const engineerEmail = memberData.email;
         let engineer = new Engineer(
           engineerName,
           engineerId,
@@ -204,8 +207,15 @@ function addIntern() {
     ])
     .then((internData) => {
         const internSchool = internData.school;
-        let intern = new Intern()
-
+        const internName = memberData.name;
+        const internId = memberData.id;
+        const internEmail = memberData.email;
+        let intern = new Intern(
+            internName,
+            internId,
+            internEmail,
+            internSchool
+        );
         console.log(intern);
         fullTeam.push(intern);
     });
