@@ -249,23 +249,23 @@ function completeTeam() {
     <body>
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
-              <span class="navbar-brand mb-0 h1">The A-Team </span>
+              <h1 class="navbar-brand m-3 text-center">The A-Team</h1>
             </div>
           </nav>
     
-          <div>`
+          <section class="row justify-content-around card-container">`
     htmlLayout.push(startHtml)
 
     for(let i = 0; i < fullTeam.length; i++) {
         let employeeCard = `
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h2 class="card-title">${fullTeam[i].getName()}</h5>
-                <h3 class="card-subtitle mb-2 text-muted">${fullTeam[i].getRole()}</h6>
-            </div>
-            <div class="card" style="width: 18rem;">
+        <div class="card col-12 col-md-6 col-lg-4 m-5 full-card" style="width: 18rem;">
+            <div class="member-header px-2 my-3">
+                <h2 class="card-title">${fullTeam[i].getName()}</h2>
+                <h3 class="card-subtitle mt-3 mb-2">- ${fullTeam[i].getRole()}</h3>
+            </div>    
+            <div class="card my-3">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">ID: ${fullTeam[i].getId()}/li>
+                    <li class="list-group-item">ID: ${fullTeam[i].getId()}</li>
                     <li class="list-group-item">Email: <a href="mailto:${fullTeam[i].getEmail()}">${fullTeam[i].email}</a></li>`
 
         if (fullTeam[i].getRole() === "Manager") {
@@ -284,7 +284,7 @@ function completeTeam() {
      htmlLayout.push(employeeCard)
     }
 
-    const endHtml = `</div>
+    const endHtml = `</section>
     </body>
     </html>`
 

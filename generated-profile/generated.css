@@ -1,0 +1,12 @@
+body {
+    background-color: aqua;
+}
+
+.member-header {
+    background-color: orange;
+    color: white;
+}
+
+.full-card {
+    background-color: gray;
+}
