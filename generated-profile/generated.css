@@ -1,12 +1,30 @@
 body {
-    background-color: aqua;
+    background-color: white;
+}
+
+#nav-border {
+    border-bottom: solid 5px #1e3d58;
+    border-top: solid 5px #1e3d58;
+    padding: 0px;
+}
+
+#team-name {
+    color: white;
+    font-size: 45px;
+}
+
+#h3-text {
+    font-size: 20px;
+}
+.container-fluid {
+    background-color: #43b0f1;
 }
 
 .member-header {
-    background-color: orange;
+    background-color: #43b0f1;
     color: white;
 }
 
 .full-card {
-    background-color: gray;
+    background-color: #1e3d58;
 }

@@ -1,6 +1,5 @@
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-
+// contructor for Engineer
+// import employee contructor
 const Employee = require("../team/employee");
 
 class Engineer extends Employee {
@@ -12,15 +11,19 @@ class Engineer extends Employee {
      * @param {string} gitHub 
      */
   constructor(name, id, email, gitHub) {
+      // calls employee contructor for name/id/email
     super(name, id, email);
     this.gitHub = gitHub;
   }
+  // returns gitHub from input
   getGitHub() {
     return this.gitHub;
   }
+  // manually make role engineer
   getRole() {
     return "Engineer";
   }
 }
 
+// exports contructor
 module.exports = Engineer;
