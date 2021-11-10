@@ -264,7 +264,7 @@ function completeTeam() {
                 <h3 class="card-subtitle mt-3 mb-2" id="h3-text">-${fullTeam[i].getRole()}</h3>
             </div>    
             <div class="card my-3">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush" id="list-border">
                     <li class="list-group-item">ID: ${fullTeam[i].getId()}</li>
                     <li class="list-group-item">Email: <a href="mailto:${fullTeam[i].getEmail()}">${fullTeam[i].email}</a></li>`
 

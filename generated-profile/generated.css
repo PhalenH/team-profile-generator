@@ -22,9 +22,16 @@ body {
 
 .member-header {
     background-color: #43b0f1;
+    border-radius: 10px;
     color: white;
 }
 
 .full-card {
     background-color: #1e3d58;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px black;
+}
+
+#list-border {
+    border-radius: 10px;
 }
