@@ -1,13 +1,14 @@
-const Employee = require("./team/employee");
+// getting classes and packages
 const Manager = require("./team/manager");
 const Engineer = require("./team/engineer");
 const Intern = require("./team/intern");
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-// should this be a const? or has to be let since I'm adding stuff
+// array to be filled with team members
 let fullTeam = [];
 
+// first function called, start manager prompt and leads into employee prompts
 function addManager() {
   inquirer
     .prompt([
@@ -69,23 +70,26 @@ function addManager() {
       const managerId = managerData.id;
       const managerEmail = managerData.email;
       const managerOfficeNumber = managerData.officeNumber;
-      let manager = new Manager(
+      let newEmployee = new Manager(
         managerName,
         managerId,
         managerEmail,
         managerOfficeNumber
       );
-      console.log(manager);
-      fullTeam.push(manager);
+      console.log(newEmployee);
+      fullTeam.push(newEmployee);
+    //   addCard(newEmployee);
+      addEmployee();
     });
 }
 
+// employee prompt which leads into intern/engineer prompt
 function addEmployee() {
   inquirer
     .prompt([
       {
         type: "input",
-        message: "What is your employee's name?",
+        message: "What is your next employee's name?",
         name: "name",
         validate: function (input) {
           if (input) {
@@ -124,7 +128,7 @@ function addEmployee() {
       },
       {
         type: "list",
-        message: "Select from the following options to build your team",
+        message: "What role is does your employee have",
         name: "role",
         choices: ["Engineer", "Intern"],
       },
@@ -138,8 +142,8 @@ function addEmployee() {
     });
 }
 
-addEmployee();
 // the memberData can be named whatever here because it's being sent on line 134 (addEngineer(memberData)), but for organization purposes better to keep it the same
+// engineer prompt which will trigger employee prompt again or the completeTeam function
 function addEngineer(memberData) {
   inquirer
     .prompt([
@@ -168,22 +172,19 @@ function addEngineer(memberData) {
       const engineerName = memberData.name;
       const engineerId = memberData.id;
       const engineerEmail = memberData.email;
-      let engineer = new Engineer(
-        engineerName,
-        engineerId,
-        engineerEmail,
-        engineerGitHub
-      );
-      console.log(engineer);
-      fullTeam.push(engineer);
+      let newEmployee = new Engineer(engineerName, engineerId, engineerEmail, engineerGitHub);
+      console.log(newEmployee);
+      fullTeam.push(newEmployee);
+    //   addCard(newEmployee);
       if (engineerData.add === "Yes") {
         addEmployee();
-      } else if (engineerData.add === "No") {
+      } else {
         completeTeam();
       }
     });
 }
 
+// intern prompt which will trigger employee prompt again or the completeTeam function
 function addIntern(memberData) {
   inquirer
     .prompt([
@@ -202,7 +203,7 @@ function addIntern(memberData) {
       },
       {
         type: "list",
-        message: "Do you want to add another team member?",
+        message: "Do you want to add another employee?",
         name: "add",
         choices: ["Yes", "No"],
       },
@@ -212,148 +213,110 @@ function addIntern(memberData) {
       const internName = memberData.name;
       const internId = memberData.id;
       const internEmail = memberData.email;
-      let intern = new Intern(internName, internId, internEmail, internSchool);
-      console.log(intern);
-      fullTeam.push(intern);
+      let newEmployee = new Intern(internName, internId, internEmail, internSchool);
+      console.log(newEmployee);
+      fullTeam.push(newEmployee);
+    //   addCard(newEmployee);
       if (internData.add === "Yes") {
         addEmployee();
-      } else if (internData.add === "No") {
+      } else {
         completeTeam();
       }
     });
 }
 
-function completeTeam() {
+// function addCard(teamMember) {
+//     const name = teamMember.getName();
+//     const role = teamMember.getRole();
+//     const id = teamMember.getId();
+//     const email = teamMember.getEmail();
+//     console.log(name, role, id, email)
+// }
 
+function completeTeam() {
+    const htmlLayout = []
+
+    const startHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <title>Team Profile</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+              <span class="navbar-brand mb-0 h1">The A-Team </span>
+            </div>
+          </nav>
+    
+          <div>`
+    htmlLayout.push(startHtml)
+
+    for(let i = 0; i < fullTeam.length; i++) {
+        let employeeCard = `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h2 class="card-title">${fullTeam[i].getName()}</h5>
+                <h3 class="card-subtitle mb-2 text-muted">${fullTeam[i].getRole()}</h6>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${fullTeam[i].getId()}/li>
+                    <li class="list-group-item">Email: <a href="mailto:${fullTeam[i].getEmail()}">${fullTeam[i].email}</a></li>`
+
+        if (fullTeam[i].getRole() === "Manager") {
+            employeeCard += `<li class="list-group-item">Office Number: ${fullTeam[i].getOfficeNumber()}</li>`
+        } else if (fullTeam[i].getRole() === "Engineer") {
+            employeeCard += `<li class="list-group-item">GitHub: <a href="https://github.com/${fullTeam[i].getGitHub()}">${fullTeam[i].getGitHub()}</a></li>`
+        } else {
+            employeeCard += `<li class="list-group-item">School: ${fullTeam[i].getSchool()}</li>`
+        }
+
+        employeeCard += `
+                </ul>
+            </div>
+        </div>
+        `
+     htmlLayout.push(employeeCard)
+    }
+
+    const endHtml = `</div>
+    </body>
+    </html>`
+
+    htmlLayout.push(endHtml)
+
+    fs.writeFile("./generated-profile/profile.html", htmlLayout.join(''), function(err){
+        if(err) {
+            console.log(err);
+        };
+    });
 }
 
-// function addEngineer() {
-//     inquirer
-//       .prompt([
-//         {
-//           type: "input",
-//           message: "What is your engineer's name?",
-//           name: "name",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your engineer's name!");
-//               return false;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           message: "What is your engineer's ID?",
-//           name: "id",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your engineer's ID!");
-//               return false;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           message: "What is your engineer's email?",
-//           name: "email",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your engineer's email!");
-//               return false;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           message: "What is your engineer's GitHub username?",
-//           name: "gitHub",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your engineer's GitHub username!");
-//               return false;
-//             }
-//           },
-//         },
-//       ])
-//       .then();
-//   }
 
-//   function addIntern() {
-//     inquirer
-//       .prompt([
-//         {
-//           type: "input",
-//           message: "What is your team intern's name?",
-//           name: "name",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your intern's name!");
-//               return false;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           message: "What is your intern's ID?",
-//           name: "id",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your intern's ID!");
-//               return false;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           message: "What is your intern's email?",
-//           name: "email",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your intern's email!");
-//               return false;
-//             }
-//           },
-//         },
-//         {
-//           type: "input",
-//           message: "What is your intern's school?",
-//           name: "school",
-//           validate: function (input) {
-//             if (input) {
-//               return true;
-//             } else {
-//               console.log("Please enter your intern's school!");
-//               return false;
-//             }
-//           },
-//         },
-//       ])
-//       .then();
-//   }
 
-//   function addMembers() {
-//     inquirer
-//       .prompt([
-//         {
-//           type: "list",
-//           message: "Select from the following options to build your team",
-//           name: "addingMembers",
-//           choices: ["Add an Engineer", "Add an Intern", "Done"],
-//         },
-//       ])
-//       .then();
-//   }
+    // for(let i = 0; i < fullTeam.length; i++) {
+    //     console.log(fullTeam[i].getName());
+    //     console.log(fullTeam[i].getRole());
+    //     console.log(fullTeam[i].getId());
+    //     console.log(fullTeam[i].getEmail());
+    // }
+
+    // addCard();
+    // htmlArray = []
+
+    // if (fullTeam[i].getOfficeNumber()) {
+    //     employeeCard += `<li class="list-group-item">Office Number: ${fullTeam[i].getOfficeNumber()}</li>`
+    // } else if (fullTeam[i].getGitHub()) {
+    //     employeeCard += `<li class="list-group-item">GitHub: <a href="https://github.com/${fullTeam[i].getGitHub()}">${fullTeam[i].getGitHub()}</a></li>`
+    // } else {
+    //     employeeCard += `<li class="list-group-item">School: ${fullTeam[i].getSchool()}</li>`
+    // }
+    // I was getting either fullTeam[i].getOfficeNumber() or fullTeam[i].getGitHub() is not a function error, why is that?
+
+
+addManager();
