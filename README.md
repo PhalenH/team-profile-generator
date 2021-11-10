@@ -28,7 +28,7 @@ The purpose was to build a Node.js command-line application that takes in inform
 - [Questions](#Questions)
 
 ## Video:
-[Professional README Generator Walkthrough](https://youtu.be/0v7I4lS20pQ)
+[Team Profile Generator Walkthrough](https://youtu.be/0v7I4lS20pQ)
 
 ## Installation: 
 - Download or clone the repo from GitHub
